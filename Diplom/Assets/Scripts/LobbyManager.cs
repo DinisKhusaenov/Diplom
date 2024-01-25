@@ -13,13 +13,14 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     [SerializeField] private TMP_InputField _createInput;
     [SerializeField] private TMP_InputField _joinInput;
 
-    private void OnEnable()
+
+    public override void OnEnable()
     {
         _create.onClick.AddListener(CreateRoom);
         _join.onClick.AddListener(JoinRoom);
     }
 
-    private void OnDisable()
+    public override void OnDisable()
     {
         _create.onClick.RemoveListener(CreateRoom);
         _join.onClick.RemoveListener(JoinRoom);
