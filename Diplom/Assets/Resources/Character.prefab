@@ -4041,6 +4041,8 @@ GameObject:
   - component: {fileID: 6469855343731676396}
   - component: {fileID: 6469855343731676386}
   - component: {fileID: 6469855343731676385}
+  - component: {fileID: 5762298359242940140}
+  - component: {fileID: 6788817858954736984}
   m_Layer: 0
   m_Name: Character
   m_TagString: Untagged
@@ -4098,7 +4100,46 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _config: {fileID: 11400000, guid: b41acc7aa37790d42a8d5d02a8d895a0, type: 2}
   _view: {fileID: 7561364931052691442}
-  _groundChecker: {fileID: 6469855344437205074}
+  _groundChecker: {fileID: 5274045017452406627}
+--- !u!114 &5762298359242940140
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6469855343731676397}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents:
+  - {fileID: 6788817858954736984}
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!114 &6788817858954736984
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6469855343731676397}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1 &6469855343980159516
 GameObject:
   m_ObjectHideFlags: 0
@@ -4139,7 +4180,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6469855344437205075}
-  - component: {fileID: 6469855344437205074}
+  - component: {fileID: 5274045017452406627}
   m_Layer: 0
   m_Name: GroundChecker
   m_TagString: Untagged
@@ -4162,7 +4203,7 @@ Transform:
   m_Father: {fileID: 6469855343731676396}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6469855344437205074
+--- !u!114 &5274045017452406627
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4171,12 +4212,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 6469855344437205084}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: becb3f19cfd801847ace344a4cbed510, type: 3}
+  m_Script: {fileID: 11500000, guid: cc57062d542ff2347b951e7fce8a1876, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _ground:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 64
   _distanceToCheck: 0.1
 --- !u!1 &6469855345097330006
 GameObject:
@@ -5311,6 +5352,7 @@ GameObject:
   - component: {fileID: 6824084348202593760}
   - component: {fileID: 7561364931052691441}
   - component: {fileID: 7561364931052691442}
+  - component: {fileID: 2325959598742318115}
   m_Layer: 0
   m_Name: CharacterView
   m_TagString: Untagged
@@ -5392,6 +5434,45 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 078e8e8511ae1fb45b12fd95a87acd0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2325959598742318115
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7561364931052691443}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b8c4a61274f60b4ea5fb4299cfdbf14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowLayerWeightsInspector: 1
+  ShowParameterInspector: 1
+  m_SynchronizeParameters:
+  - Type: 4
+    SynchronizeType: 0
+    Name: IsRunning
+  - Type: 4
+    SynchronizeType: 0
+    Name: IsIdling
+  - Type: 4
+    SynchronizeType: 0
+    Name: IsMovement
+  - Type: 4
+    SynchronizeType: 0
+    Name: IsGrounded
+  - Type: 4
+    SynchronizeType: 0
+    Name: IsAirborn
+  - Type: 4
+    SynchronizeType: 0
+    Name: IsFalling
+  - Type: 4
+    SynchronizeType: 0
+    Name: IsJumping
+  m_SynchronizeLayers:
+  - SynchronizeType: 0
+    LayerIndex: 0
 --- !u!1 &7629020803156091562
 GameObject:
   m_ObjectHideFlags: 0

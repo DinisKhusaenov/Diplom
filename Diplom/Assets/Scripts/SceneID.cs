@@ -1,6 +1,5 @@
 public enum SceneID
 {
-    LoadingScene = 0,
-    LobbyScene,
+    LobbyScene = 0,
     GameScene
 }

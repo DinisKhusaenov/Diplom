@@ -1,10 +1,11 @@
 using Photon.Pun;
 using Photon.Realtime;
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class LobbyManager : MonoBehaviourPunCallbacks
+public class LobbyManager : MonoBehaviourPunCallbacks, IDisposable
 {
     private const int MaxPlayers = 2;
 
@@ -13,33 +14,61 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     [SerializeField] private TMP_InputField _createInput;
     [SerializeField] private TMP_InputField _joinInput;
 
-
-    public override void OnEnable()
+    private void Awake()
     {
+        PhotonNetwork.ConnectUsingSettings();
+
         _create.onClick.AddListener(CreateRoom);
         _join.onClick.AddListener(JoinRoom);
     }
 
-    public override void OnDisable()
+    public void Dispose()
     {
         _create.onClick.RemoveListener(CreateRoom);
         _join.onClick.RemoveListener(JoinRoom);
     }
 
+    public override void OnConnectedToMaster()
+    {
+        Debug.Log("Connected");
+    }
+
     public override void OnJoinedRoom()
     {
-        PhotonNetwork.LoadLevel((int)SceneID.GameScene);
+        GoToGameScene();
+    }
+
+    public override void OnCreatedRoom()
+    {
+        Debug.Log("Room created successfully!");
+        GoToGameScene();
     }
 
     private void CreateRoom()
     {
         RoomOptions roomOptions = new RoomOptions();
         roomOptions.MaxPlayers = MaxPlayers;
-        PhotonNetwork.CreateRoom(_createInput.text, roomOptions);
+
+        if (!PhotonNetwork.CreateRoom(_createInput.text, roomOptions, TypedLobby.Default))
+        {
+            Debug.LogError("Failed to create room");
+        }
     }
 
     private void JoinRoom()
     {
-        PhotonNetwork.JoinRoom(_joinInput.text);
+        if (PhotonNetwork.JoinRoom(_joinInput.text))
+        {
+            Debug.Log("Joining room...");
+        }
+        else
+        {
+            Debug.LogError("Failed to join room");
+        }
+    }
+
+    private void GoToGameScene()
+    {
+        PhotonNetwork.LoadLevel((int)SceneID.GameScene);
     }
 }

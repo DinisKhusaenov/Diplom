@@ -162,6 +162,7 @@ GameObject:
   - component: {fileID: 2606937925581165735}
   - component: {fileID: 2606937925581165732}
   - component: {fileID: 2606937925581165734}
+  - component: {fileID: 5895045537274079963}
   m_Layer: 0
   m_Name: FollowCamera
   m_TagString: Untagged
@@ -184,7 +185,7 @@ Transform:
   - {fileID: 2606937925486266572}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 16.254, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2606937925581165732
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -203,8 +204,8 @@ MonoBehaviour:
   m_StreamingVersion: 20170927
   m_Priority: 11
   m_StandbyUpdate: 2
-  m_LookAt: {fileID: 0}
-  m_Follow: {fileID: 0}
+  m_LookAt: {fileID: 6469855343731676396, guid: a6560a4309cad2a4ab2ca873062c6184, type: 3}
+  m_Follow: {fileID: 6469855343731676396, guid: a6560a4309cad2a4ab2ca873062c6184, type: 3}
   m_Lens:
     FieldOfView: 60
     OrthographicSize: 5
@@ -237,3 +238,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _camera: {fileID: 2606937925581165732}
   _sensitivity: 0.2
+--- !u!114 &5895045537274079963
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2606937925581165733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a37e2b43eedd3c48a4e4ccf3331373b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
