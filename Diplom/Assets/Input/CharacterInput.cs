@@ -136,40 +136,13 @@ public partial class @CharacterInput: IInputActionCollection2, IDisposable
             ]
         },
         {
-            ""name"": ""CastRecall"",
-            ""id"": ""61a2c13a-8e29-480e-912c-90972ac4c3cd"",
+            ""name"": ""JoinRequest"",
+            ""id"": ""f45fa38c-1fa9-4b5a-8813-2de8d694dbe2"",
             ""actions"": [
                 {
-                    ""name"": ""AimTarget"",
-                    ""type"": ""Value"",
-                    ""id"": ""dfb24796-03c3-4b4b-918c-10184b51b272"",
-                    ""expectedControlType"": ""Vector2"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
-                },
-                {
-                    ""name"": ""Cancel"",
+                    ""name"": ""Join"",
                     ""type"": ""Button"",
-                    ""id"": ""d2d8291b-c202-4a25-8256-151b6726a1bd"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Apply"",
-                    ""type"": ""Button"",
-                    ""id"": ""3d35d0e5-e939-4668-9cd0-bceb8d0688d3"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""CastSpell"",
-                    ""type"": ""Button"",
-                    ""id"": ""e74de09f-3ca1-48eb-b91c-c71c2efaea09"",
+                    ""id"": ""4d9cd2bc-cd82-4e18-a899-1d69bcafca54"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -179,45 +152,12 @@ public partial class @CharacterInput: IInputActionCollection2, IDisposable
             ""bindings"": [
                 {
                     ""name"": """",
-                    ""id"": ""5194ea62-e15a-4b72-b024-2e4d4f3a4935"",
-                    ""path"": ""<Mouse>/position"",
+                    ""id"": ""beb7bf00-2616-4d54-8959-610fe0462e31"",
+                    ""path"": ""<Keyboard>/j"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""AimTarget"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""79d0324c-3e18-43c5-91ef-a18ac0956ca4"",
-                    ""path"": ""<Keyboard>/c"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Cancel"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""e904bfcb-5b88-402f-ac0e-bde38d8c6d67"",
-                    ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Apply"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""fa987fd6-14af-4f3b-9fc1-a4ba349ca388"",
-                    ""path"": ""<Keyboard>/f"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""CastSpell"",
+                    ""action"": ""Join"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -231,12 +171,9 @@ public partial class @CharacterInput: IInputActionCollection2, IDisposable
         m_Movement_Move = m_Movement.FindAction("Move", throwIfNotFound: true);
         m_Movement_Look = m_Movement.FindAction("Look", throwIfNotFound: true);
         m_Movement_Jump = m_Movement.FindAction("Jump", throwIfNotFound: true);
-        // CastRecall
-        m_CastRecall = asset.FindActionMap("CastRecall", throwIfNotFound: true);
-        m_CastRecall_AimTarget = m_CastRecall.FindAction("AimTarget", throwIfNotFound: true);
-        m_CastRecall_Cancel = m_CastRecall.FindAction("Cancel", throwIfNotFound: true);
-        m_CastRecall_Apply = m_CastRecall.FindAction("Apply", throwIfNotFound: true);
-        m_CastRecall_CastSpell = m_CastRecall.FindAction("CastSpell", throwIfNotFound: true);
+        // JoinRequest
+        m_JoinRequest = asset.FindActionMap("JoinRequest", throwIfNotFound: true);
+        m_JoinRequest_Join = m_JoinRequest.FindAction("Join", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -357,86 +294,59 @@ public partial class @CharacterInput: IInputActionCollection2, IDisposable
     }
     public MovementActions @Movement => new MovementActions(this);
 
-    // CastRecall
-    private readonly InputActionMap m_CastRecall;
-    private List<ICastRecallActions> m_CastRecallActionsCallbackInterfaces = new List<ICastRecallActions>();
-    private readonly InputAction m_CastRecall_AimTarget;
-    private readonly InputAction m_CastRecall_Cancel;
-    private readonly InputAction m_CastRecall_Apply;
-    private readonly InputAction m_CastRecall_CastSpell;
-    public struct CastRecallActions
+    // JoinRequest
+    private readonly InputActionMap m_JoinRequest;
+    private List<IJoinRequestActions> m_JoinRequestActionsCallbackInterfaces = new List<IJoinRequestActions>();
+    private readonly InputAction m_JoinRequest_Join;
+    public struct JoinRequestActions
     {
         private @CharacterInput m_Wrapper;
-        public CastRecallActions(@CharacterInput wrapper) { m_Wrapper = wrapper; }
-        public InputAction @AimTarget => m_Wrapper.m_CastRecall_AimTarget;
-        public InputAction @Cancel => m_Wrapper.m_CastRecall_Cancel;
-        public InputAction @Apply => m_Wrapper.m_CastRecall_Apply;
-        public InputAction @CastSpell => m_Wrapper.m_CastRecall_CastSpell;
-        public InputActionMap Get() { return m_Wrapper.m_CastRecall; }
+        public JoinRequestActions(@CharacterInput wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Join => m_Wrapper.m_JoinRequest_Join;
+        public InputActionMap Get() { return m_Wrapper.m_JoinRequest; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
         public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(CastRecallActions set) { return set.Get(); }
-        public void AddCallbacks(ICastRecallActions instance)
+        public static implicit operator InputActionMap(JoinRequestActions set) { return set.Get(); }
+        public void AddCallbacks(IJoinRequestActions instance)
         {
-            if (instance == null || m_Wrapper.m_CastRecallActionsCallbackInterfaces.Contains(instance)) return;
-            m_Wrapper.m_CastRecallActionsCallbackInterfaces.Add(instance);
-            @AimTarget.started += instance.OnAimTarget;
-            @AimTarget.performed += instance.OnAimTarget;
-            @AimTarget.canceled += instance.OnAimTarget;
-            @Cancel.started += instance.OnCancel;
-            @Cancel.performed += instance.OnCancel;
-            @Cancel.canceled += instance.OnCancel;
-            @Apply.started += instance.OnApply;
-            @Apply.performed += instance.OnApply;
-            @Apply.canceled += instance.OnApply;
-            @CastSpell.started += instance.OnCastSpell;
-            @CastSpell.performed += instance.OnCastSpell;
-            @CastSpell.canceled += instance.OnCastSpell;
+            if (instance == null || m_Wrapper.m_JoinRequestActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_JoinRequestActionsCallbackInterfaces.Add(instance);
+            @Join.started += instance.OnJoin;
+            @Join.performed += instance.OnJoin;
+            @Join.canceled += instance.OnJoin;
         }
 
-        private void UnregisterCallbacks(ICastRecallActions instance)
+        private void UnregisterCallbacks(IJoinRequestActions instance)
         {
-            @AimTarget.started -= instance.OnAimTarget;
-            @AimTarget.performed -= instance.OnAimTarget;
-            @AimTarget.canceled -= instance.OnAimTarget;
-            @Cancel.started -= instance.OnCancel;
-            @Cancel.performed -= instance.OnCancel;
-            @Cancel.canceled -= instance.OnCancel;
-            @Apply.started -= instance.OnApply;
-            @Apply.performed -= instance.OnApply;
-            @Apply.canceled -= instance.OnApply;
-            @CastSpell.started -= instance.OnCastSpell;
-            @CastSpell.performed -= instance.OnCastSpell;
-            @CastSpell.canceled -= instance.OnCastSpell;
+            @Join.started -= instance.OnJoin;
+            @Join.performed -= instance.OnJoin;
+            @Join.canceled -= instance.OnJoin;
         }
 
-        public void RemoveCallbacks(ICastRecallActions instance)
+        public void RemoveCallbacks(IJoinRequestActions instance)
         {
-            if (m_Wrapper.m_CastRecallActionsCallbackInterfaces.Remove(instance))
+            if (m_Wrapper.m_JoinRequestActionsCallbackInterfaces.Remove(instance))
                 UnregisterCallbacks(instance);
         }
 
-        public void SetCallbacks(ICastRecallActions instance)
+        public void SetCallbacks(IJoinRequestActions instance)
         {
-            foreach (var item in m_Wrapper.m_CastRecallActionsCallbackInterfaces)
+            foreach (var item in m_Wrapper.m_JoinRequestActionsCallbackInterfaces)
                 UnregisterCallbacks(item);
-            m_Wrapper.m_CastRecallActionsCallbackInterfaces.Clear();
+            m_Wrapper.m_JoinRequestActionsCallbackInterfaces.Clear();
             AddCallbacks(instance);
         }
     }
-    public CastRecallActions @CastRecall => new CastRecallActions(this);
+    public JoinRequestActions @JoinRequest => new JoinRequestActions(this);
     public interface IMovementActions
     {
         void OnMove(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
     }
-    public interface ICastRecallActions
+    public interface IJoinRequestActions
     {
-        void OnAimTarget(InputAction.CallbackContext context);
-        void OnCancel(InputAction.CallbackContext context);
-        void OnApply(InputAction.CallbackContext context);
-        void OnCastSpell(InputAction.CallbackContext context);
+        void OnJoin(InputAction.CallbackContext context);
     }
 }

@@ -11,7 +11,6 @@ public class ServiceInstaller : MonoInstaller
     {
         CharacterInput input = new CharacterInput();
         input.Enable();
-        input.CastRecall.Disable();
 
         Container.Bind<CharacterInput>().FromInstance(input).AsSingle();
     }

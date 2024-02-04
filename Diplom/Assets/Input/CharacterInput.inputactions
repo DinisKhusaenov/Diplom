@@ -114,40 +114,13 @@
             ]
         },
         {
-            "name": "CastRecall",
-            "id": "61a2c13a-8e29-480e-912c-90972ac4c3cd",
+            "name": "JoinRequest",
+            "id": "f45fa38c-1fa9-4b5a-8813-2de8d694dbe2",
             "actions": [
                 {
-                    "name": "AimTarget",
-                    "type": "Value",
-                    "id": "dfb24796-03c3-4b4b-918c-10184b51b272",
-                    "expectedControlType": "Vector2",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                },
-                {
-                    "name": "Cancel",
+                    "name": "Join",
                     "type": "Button",
-                    "id": "d2d8291b-c202-4a25-8256-151b6726a1bd",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Apply",
-                    "type": "Button",
-                    "id": "3d35d0e5-e939-4668-9cd0-bceb8d0688d3",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "CastSpell",
-                    "type": "Button",
-                    "id": "e74de09f-3ca1-48eb-b91c-c71c2efaea09",
+                    "id": "4d9cd2bc-cd82-4e18-a899-1d69bcafca54",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -157,45 +130,12 @@
             "bindings": [
                 {
                     "name": "",
-                    "id": "5194ea62-e15a-4b72-b024-2e4d4f3a4935",
-                    "path": "<Mouse>/position",
+                    "id": "beb7bf00-2616-4d54-8959-610fe0462e31",
+                    "path": "<Keyboard>/j",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "AimTarget",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "79d0324c-3e18-43c5-91ef-a18ac0956ca4",
-                    "path": "<Keyboard>/c",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Cancel",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "e904bfcb-5b88-402f-ac0e-bde38d8c6d67",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Apply",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "fa987fd6-14af-4f3b-9fc1-a4ba349ca388",
-                    "path": "<Keyboard>/f",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "CastSpell",
+                    "action": "Join",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

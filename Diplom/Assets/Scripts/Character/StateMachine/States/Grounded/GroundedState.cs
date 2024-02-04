@@ -4,9 +4,13 @@ using UnityEngine.InputSystem;
 public abstract class GroundedState : MovementState
 {
     private readonly GroundChecker _groundChecker;
+    private Character _character;
 
     protected GroundedState(IStateSwitcher stateSwitcher, Character character, StateMachineData data, Camera camera) : base(stateSwitcher, character, data, camera)
-        => _groundChecker = character.GroundChecker;
+    {
+        _groundChecker = character.GroundChecker;
+        _character = character; 
+    }
 
     public override void Enter()
     {
@@ -35,6 +39,7 @@ public abstract class GroundedState : MovementState
         base.AddInputActionsCallbacks();
 
         Input.Movement.Jump.started += OnJumpKeyPressed;
+        _character.Jumped += OnJumpKeyPressed;
     }
 
     protected override void RemoveInputActionsCallbacks()
@@ -42,7 +47,9 @@ public abstract class GroundedState : MovementState
         base.RemoveInputActionsCallbacks();
 
         Input.Movement.Jump.started -= OnJumpKeyPressed;
+        _character.Jumped -= OnJumpKeyPressed;
     }
 
     private void OnJumpKeyPressed(InputAction.CallbackContext obj) => StateSwitcher.SwitchState<JumpingState>();
+    private void OnJumpKeyPressed() => StateSwitcher.SwitchState<JumpingState>();
 }

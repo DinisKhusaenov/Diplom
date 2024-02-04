@@ -4043,6 +4043,7 @@ GameObject:
   - component: {fileID: 6469855343731676385}
   - component: {fileID: 5762298359242940140}
   - component: {fileID: 6788817858954736984}
+  - component: {fileID: 3518450632329580510}
   m_Layer: 0
   m_Name: Character
   m_TagString: Untagged
@@ -4116,11 +4117,13 @@ MonoBehaviour:
   ObservedComponentsFoldoutOpen: 1
   Group: 0
   prefixField: -1
-  Synchronization: 3
+  Synchronization: 1
   OwnershipTransfer: 0
   observableSearch: 2
   ObservedComponents:
+  - {fileID: 6469855343731676385}
   - {fileID: 6788817858954736984}
+  - {fileID: 2325959598742318115}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -4140,6 +4143,18 @@ MonoBehaviour:
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
   m_UseLocal: 1
+--- !u!114 &3518450632329580510
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6469855343731676397}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77a90bd8a0d2f794b9c5690dc2362011, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6469855343980159516
 GameObject:
   m_ObjectHideFlags: 0
@@ -5450,25 +5465,25 @@ MonoBehaviour:
   ShowParameterInspector: 1
   m_SynchronizeParameters:
   - Type: 4
-    SynchronizeType: 0
+    SynchronizeType: 1
     Name: IsRunning
   - Type: 4
-    SynchronizeType: 0
+    SynchronizeType: 1
     Name: IsIdling
   - Type: 4
-    SynchronizeType: 0
+    SynchronizeType: 1
     Name: IsMovement
   - Type: 4
-    SynchronizeType: 0
+    SynchronizeType: 1
     Name: IsGrounded
   - Type: 4
-    SynchronizeType: 0
+    SynchronizeType: 1
     Name: IsAirborn
   - Type: 4
-    SynchronizeType: 0
+    SynchronizeType: 1
     Name: IsFalling
   - Type: 4
-    SynchronizeType: 0
+    SynchronizeType: 1
     Name: IsJumping
   m_SynchronizeLayers:
   - SynchronizeType: 0
