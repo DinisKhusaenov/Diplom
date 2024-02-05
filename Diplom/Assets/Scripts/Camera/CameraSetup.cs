@@ -7,21 +7,22 @@ public class CameraSetup : MonoBehaviour
     private Transform _target;
     private CinemachineVirtualCamera _virtualCamera;
 
-    public void Initialize(Transform target)
+    private IJoin _character;
+
+    public void Initialize(Transform target, IJoin character)
     {
         _target = target;
+        _character = character;
 
         _virtualCamera = GetComponent<CinemachineVirtualCamera>();
+        _character.YesClicked += TryChangeTarget;
 
         SetTarget();
     }
 
-    private void Update()
+    private void OnDisable()
     {
-        if (Input.GetKeyDown(KeyCode.Tab))
-        {
-            TryChangeTarget();
-        }
+        _character.YesClicked -= TryChangeTarget;
     }
 
     private void SetTarget()

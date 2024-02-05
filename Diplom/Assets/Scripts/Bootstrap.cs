@@ -13,7 +13,7 @@ public class Bootstrap : MonoBehaviourPunCallbacks
     private void Awake()
     {
         var character = PhotonNetwork.Instantiate(_character.name, _spawnPosition.position, Quaternion.identity);
-        _camera.Initialize(character.transform);
+        _camera.Initialize(character.transform, character.GetComponent<Character>());
         _joinMediator = new JoinMediator(_joinRequestView, character.GetComponent<Character>());
     }
 }

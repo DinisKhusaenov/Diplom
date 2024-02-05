@@ -50,6 +50,11 @@ public abstract class GroundedState : MovementState
         _character.Jumped -= OnJumpKeyPressed;
     }
 
-    private void OnJumpKeyPressed(InputAction.CallbackContext obj) => StateSwitcher.SwitchState<JumpingState>();
+    private void OnJumpKeyPressed(InputAction.CallbackContext obj)
+    {
+        if (_character.IsJoinedMe == false)
+            StateSwitcher.SwitchState<JumpingState>();
+    }
+
     private void OnJumpKeyPressed() => StateSwitcher.SwitchState<JumpingState>();
 }

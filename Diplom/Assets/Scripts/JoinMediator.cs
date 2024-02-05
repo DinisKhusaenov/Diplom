@@ -11,12 +11,16 @@ public class JoinMediator: IDisposable
         _character = character;
 
         _character.JoinClicked += OnJoinClicked;
+        _joinRequestView.YesClicked += OnYesClicked;
     }
 
     public void Dispose()
     {
         _character.JoinClicked -= OnJoinClicked;
+        _joinRequestView.YesClicked -= OnYesClicked;
     }
 
     private void OnJoinClicked() => _joinRequestView.Show();
+
+    private void OnYesClicked() => _character.OnYesClicked();
 }

@@ -43,6 +43,8 @@ public abstract class MovementState : IState
 
     public virtual void Update()
     {
+        if (_character.IsJoined == true) return;
+
         Vector2 inputDirection = ReadMovementInput();
         Vector3 convertedDirection = GetConvertedInputDirection(inputDirection);
 
