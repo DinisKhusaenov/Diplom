@@ -39,7 +39,7 @@ public abstract class GroundedState : MovementState
         base.AddInputActionsCallbacks();
 
         Input.Movement.Jump.started += OnJumpKeyPressed;
-        _character.Jumped += OnJumpKeyPressed;
+        _character.JoinHandler.Jumped += OnJumpKeyPressed;
     }
 
     protected override void RemoveInputActionsCallbacks()
@@ -47,12 +47,12 @@ public abstract class GroundedState : MovementState
         base.RemoveInputActionsCallbacks();
 
         Input.Movement.Jump.started -= OnJumpKeyPressed;
-        _character.Jumped -= OnJumpKeyPressed;
+        _character.JoinHandler.Jumped -= OnJumpKeyPressed;
     }
 
     private void OnJumpKeyPressed(InputAction.CallbackContext obj)
     {
-        if (_character.IsJoinedMe == false)
+        if (_character.JoinHandler.IsJoinedMe == false)
             StateSwitcher.SwitchState<JumpingState>();
     }
 

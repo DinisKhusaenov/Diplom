@@ -147,6 +147,15 @@ public partial class @CharacterInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Unjoin"",
+                    ""type"": ""Button"",
+                    ""id"": ""8b84e614-d056-409e-8203-cdf92e46b073"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -158,6 +167,17 @@ public partial class @CharacterInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Join"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""43b04450-84fd-460b-80b7-e9ab6ce974bf"",
+                    ""path"": ""<Keyboard>/u"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Unjoin"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -174,6 +194,7 @@ public partial class @CharacterInput: IInputActionCollection2, IDisposable
         // JoinRequest
         m_JoinRequest = asset.FindActionMap("JoinRequest", throwIfNotFound: true);
         m_JoinRequest_Join = m_JoinRequest.FindAction("Join", throwIfNotFound: true);
+        m_JoinRequest_Unjoin = m_JoinRequest.FindAction("Unjoin", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -298,11 +319,13 @@ public partial class @CharacterInput: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_JoinRequest;
     private List<IJoinRequestActions> m_JoinRequestActionsCallbackInterfaces = new List<IJoinRequestActions>();
     private readonly InputAction m_JoinRequest_Join;
+    private readonly InputAction m_JoinRequest_Unjoin;
     public struct JoinRequestActions
     {
         private @CharacterInput m_Wrapper;
         public JoinRequestActions(@CharacterInput wrapper) { m_Wrapper = wrapper; }
         public InputAction @Join => m_Wrapper.m_JoinRequest_Join;
+        public InputAction @Unjoin => m_Wrapper.m_JoinRequest_Unjoin;
         public InputActionMap Get() { return m_Wrapper.m_JoinRequest; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -315,6 +338,9 @@ public partial class @CharacterInput: IInputActionCollection2, IDisposable
             @Join.started += instance.OnJoin;
             @Join.performed += instance.OnJoin;
             @Join.canceled += instance.OnJoin;
+            @Unjoin.started += instance.OnUnjoin;
+            @Unjoin.performed += instance.OnUnjoin;
+            @Unjoin.canceled += instance.OnUnjoin;
         }
 
         private void UnregisterCallbacks(IJoinRequestActions instance)
@@ -322,6 +348,9 @@ public partial class @CharacterInput: IInputActionCollection2, IDisposable
             @Join.started -= instance.OnJoin;
             @Join.performed -= instance.OnJoin;
             @Join.canceled -= instance.OnJoin;
+            @Unjoin.started -= instance.OnUnjoin;
+            @Unjoin.performed -= instance.OnUnjoin;
+            @Unjoin.canceled -= instance.OnUnjoin;
         }
 
         public void RemoveCallbacks(IJoinRequestActions instance)
@@ -348,5 +377,6 @@ public partial class @CharacterInput: IInputActionCollection2, IDisposable
     public interface IJoinRequestActions
     {
         void OnJoin(InputAction.CallbackContext context);
+        void OnUnjoin(InputAction.CallbackContext context);
     }
 }

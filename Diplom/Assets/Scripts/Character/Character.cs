@@ -1,21 +1,15 @@
-using ExitGames.Client.Photon;
 using Photon.Pun;
-using Photon.Realtime;
-using System;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(CharacterController))]
 [RequireComponent(typeof(PhotonView))]
-public class Character : MonoBehaviour, IPunObservable, IJoin
+public class Character : MonoBehaviour
 {
-    public event Action Jumped;
-    public event Action JoinClicked;
-    public event Action YesClicked;
 
     [SerializeField] private CharacterConfig _config;
     [SerializeField] private CharacterView _view;
     [SerializeField] private GroundChecker _groundChecker;
+    [SerializeField] private PlayerJoinHandler _joinHandler; 
 
     private CharacterInput _input;
     private CharacterStateMachine _stateMachine;
@@ -23,15 +17,13 @@ public class Character : MonoBehaviour, IPunObservable, IJoin
     private Camera _camera;
     private PhotonView _photonView;
 
-    public bool IsJoined { get; private set; }
-    public bool IsJoinedMe { get; private set; }
-
     public CharacterInput Input => _input;
     public CharacterController Controller => _characterController;
     public CharacterConfig Config => _config;
     public CharacterView View => _view;
     public GroundChecker GroundChecker => _groundChecker;
     public Camera Camera => _camera;
+    public IJoinHandler JoinHandler => _joinHandler;
 
     private void Awake()
     {
@@ -43,8 +35,8 @@ public class Character : MonoBehaviour, IPunObservable, IJoin
 
         _photonView = GetComponent<PhotonView>();
 
-        IsJoined = false;
-        IsJoinedMe = false;
+        _joinHandler.Initialize(_input);
+
     }
 
     private void Update()
@@ -58,80 +50,10 @@ public class Character : MonoBehaviour, IPunObservable, IJoin
     private void OnEnable()
     {
         _input.Enable();
-        PhotonNetwork.NetworkingClient.EventReceived += Jump;
-        PhotonNetwork.NetworkingClient.EventReceived += Join;
-        PhotonNetwork.NetworkingClient.EventReceived += JoinMe;
-        _input.Movement.Jump.started += OnJumpPressed;
-        _input.JoinRequest.Join.started += OnJoinRequestPressed;
     }
 
     private void OnDisable()
     {
         _input.Disable();
-        PhotonNetwork.NetworkingClient.EventReceived -= Jump;
-        PhotonNetwork.NetworkingClient.EventReceived -= Join;
-        PhotonNetwork.NetworkingClient.EventReceived -= JoinMe;
-        _input.Movement.Jump.started -= OnJumpPressed;
-        _input.JoinRequest.Join.started -= OnJoinRequestPressed;
-    }
-
-    public void OnYesClicked()
-    {
-        IsJoined = true;
-        YesClicked?.Invoke();
-        YesPressed();
-    }
-
-    private void OnJumpPressed(InputAction.CallbackContext obj)
-    {
-        if (IsJoined)
-        {
-            object[] eventData = new object[] { (byte)EventCodes.Jump };
-            PhotonNetwork.RaiseEvent((byte)EventCodes.Jump, eventData, new RaiseEventOptions { Receivers = ReceiverGroup.Others }, SendOptions.SendReliable);
-        }
-    }
-
-    private void Jump(EventData obj)
-    {
-        if (obj.Code == (byte)EventCodes.Jump)
-            Jumped?.Invoke();
-    }
-
-    private void YesPressed()
-    {
-        object[] eventData = new object[] { (byte)EventCodes.JoinMe };
-        PhotonNetwork.RaiseEvent((byte)EventCodes.JoinMe, eventData, new RaiseEventOptions { Receivers = ReceiverGroup.Others }, SendOptions.SendReliable);
-    }
-
-    private void OnJoinRequestPressed(InputAction.CallbackContext obj)
-    {
-        if (IsJoined == false && IsJoinedMe == false)
-        {
-            object[] eventData = new object[] { (byte)EventCodes.Join };
-            PhotonNetwork.RaiseEvent((byte)EventCodes.Join, eventData, new RaiseEventOptions { Receivers = ReceiverGroup.Others }, SendOptions.SendReliable);
-        }
-    }
-
-    private void Join(EventData data)
-    {
-        if (data.Code == (byte)EventCodes.Join)
-            JoinClicked?.Invoke();
-    }
-
-    private void JoinMe(EventData data)
-    {
-        if (data.Code == (byte)EventCodes.JoinMe)
-            IsJoinedMe = true;
-    }
-
-    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    {
-    }
-
-    public enum EventCodes : byte
-    {
-        Jump = 1,
-        Join,
-        JoinMe
     }
 }
