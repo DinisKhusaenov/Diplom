@@ -13,6 +13,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks, IDisposable
     [SerializeField] private Button _join;
     [SerializeField] private TMP_InputField _createInput;
     [SerializeField] private TMP_InputField _joinInput;
+    [SerializeField] private GameObject _connecting;
 
     private void Awake()
     {
@@ -20,6 +21,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks, IDisposable
 
         _create.onClick.AddListener(CreateRoom);
         _join.onClick.AddListener(JoinRoom);
+        _connecting.SetActive(true);
     }
 
     public void Dispose()
@@ -31,6 +33,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks, IDisposable
     public override void OnConnectedToMaster()
     {
         Debug.Log("Connected");
+        _connecting.SetActive(false);
     }
 
     public override void OnJoinedRoom()

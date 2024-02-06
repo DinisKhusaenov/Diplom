@@ -4,8 +4,10 @@ public abstract class MovementState : IState
 {
     protected readonly IStateSwitcher StateSwitcher;
     protected readonly StateMachineData Data;
+    protected const int MultiplyingWhenCombining = 2;
+
     private const float FullRotation = 360;
-    private const float _timeToReachTargetRotation = 0.14f;
+    private const float TimeToReachTargetRotation = 0.14f;
 
     private readonly Character _character;
     private Camera _camera;
@@ -72,7 +74,10 @@ public abstract class MovementState : IState
 
         Vector3 normalizedInputDirection = inputDirection.normalized;
 
-        CharacterController.Move(normalizedInputDirection * scaledMoveSpeed);
+        if (_character.JoinHandler.IsJoinedMe)
+            CharacterController.Move(normalizedInputDirection * scaledMoveSpeed * MultiplyingWhenCombining);
+        else
+            CharacterController.Move(normalizedInputDirection * scaledMoveSpeed);
     }
 
     private void Rotate(float inputAngleDirection)
@@ -96,7 +101,7 @@ public abstract class MovementState : IState
         if (currentYAngle == _currentTargetRotation)
             return;
 
-        float smoothedYAngle = Mathf.SmoothDampAngle(currentYAngle, _currentTargetRotation, ref _dampedTargetRotationCurrentVelocity, _timeToReachTargetRotation - _dampedTargetRotationPassedTime);
+        float smoothedYAngle = Mathf.SmoothDampAngle(currentYAngle, _currentTargetRotation, ref _dampedTargetRotationCurrentVelocity, TimeToReachTargetRotation - _dampedTargetRotationPassedTime);
         _dampedTargetRotationPassedTime += Time.deltaTime;
 
         Quaternion targetRotation = Quaternion.Euler(0, smoothedYAngle, 0);
