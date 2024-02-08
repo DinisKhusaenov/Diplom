@@ -13,4 +13,5 @@ public interface IJoinHandler
     bool IsJoinedMe { get; }
 
     void OnYesClicked();
+    void OnQuitGameClicked();
 }

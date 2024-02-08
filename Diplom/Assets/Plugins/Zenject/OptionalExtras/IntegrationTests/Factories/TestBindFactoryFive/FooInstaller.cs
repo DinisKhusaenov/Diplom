@@ -1,6 +1,6 @@
 namespace Zenject.Tests.Factories.BindFactoryFive
 {
-    public class FooInstaller : MonoInstaller
+    public class FooInstaller : MonoInstallerPunCallbacks
     {
         double _param1;
         int _param2;

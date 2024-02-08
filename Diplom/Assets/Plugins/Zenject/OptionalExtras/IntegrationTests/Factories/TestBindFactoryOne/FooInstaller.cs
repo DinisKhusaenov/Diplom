@@ -1,6 +1,6 @@
 namespace Zenject.Tests.Factories.BindFactoryOne
 {
-    public class FooInstaller : MonoInstaller
+    public class FooInstaller : MonoInstallerPunCallbacks
     {
         string _param1;
 

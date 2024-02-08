@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Zenject.Asteroids
 {
-    public class GameInstaller : MonoInstaller
+    public class GameInstaller : MonoInstallerPunCallbacks
     {
         [Inject]
         Settings _settings = null;

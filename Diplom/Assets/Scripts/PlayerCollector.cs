@@ -10,10 +10,11 @@ public class PlayerCollector : MonoBehaviour
     private void Awake()
     {
         _players.Clear();
+        _players.Add(transform);
     }
 
-    private void Start()
+    public void RemovePlayer()
     {
-        _players.Add(transform);
+        _players.Remove(transform);
     }
 }

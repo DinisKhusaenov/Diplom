@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Zenject.SpaceFighter
 {
-    public class PlayerInstaller : MonoInstaller
+    public class PlayerInstaller : MonoInstallerPunCallbacks
     {
         [SerializeField]
         Settings _settings = null;

@@ -4,7 +4,7 @@
 
 namespace Zenject.Tests.Bindings.FromSubContainerPrefab
 {
-    public class FooInstaller : MonoInstaller
+    public class FooInstaller : MonoInstallerPunCallbacks
     {
         [SerializeField]
         Bar _bar;

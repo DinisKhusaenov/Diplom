@@ -32,7 +32,6 @@ public class LobbyManager : MonoBehaviourPunCallbacks, IDisposable
 
     public override void OnConnectedToMaster()
     {
-        Debug.Log("Connected");
         _connecting.SetActive(false);
     }
 
@@ -43,7 +42,6 @@ public class LobbyManager : MonoBehaviourPunCallbacks, IDisposable
 
     public override void OnCreatedRoom()
     {
-        Debug.Log("Room created successfully!");
         GoToGameScene();
     }
 
@@ -60,14 +58,8 @@ public class LobbyManager : MonoBehaviourPunCallbacks, IDisposable
 
     private void JoinRoom()
     {
-        if (PhotonNetwork.JoinRoom(_joinInput.text))
-        {
-            Debug.Log("Joining room...");
-        }
-        else
-        {
+        if (!PhotonNetwork.JoinRoom(_joinInput.text))
             Debug.LogError("Failed to join room");
-        }
     }
 
     private void GoToGameScene()

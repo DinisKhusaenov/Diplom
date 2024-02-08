@@ -12,15 +12,15 @@ namespace Zenject
     public class SceneDecoratorContext : Context
     {
         [SerializeField]
-        List<MonoInstaller> _lateInstallers = new List<MonoInstaller>();
+        List<MonoInstallerPunCallbacks> _lateInstallers = new List<MonoInstallerPunCallbacks>();
 
         [SerializeField]
-        List<MonoInstaller> _lateInstallerPrefabs = new List<MonoInstaller>();
+        List<MonoInstallerPunCallbacks> _lateInstallerPrefabs = new List<MonoInstallerPunCallbacks>();
 
         [SerializeField]
         List<ScriptableObjectInstaller> _lateScriptableObjectInstallers = new List<ScriptableObjectInstaller>();
 
-        public IEnumerable<MonoInstaller> LateInstallers
+        public IEnumerable<MonoInstallerPunCallbacks> LateInstallers
         {
             get { return _lateInstallers; }
             set
@@ -30,7 +30,7 @@ namespace Zenject
             }
         }
 
-        public IEnumerable<MonoInstaller> LateInstallerPrefabs
+        public IEnumerable<MonoInstallerPunCallbacks> LateInstallerPrefabs
         {
             get { return _lateInstallerPrefabs; }
             set

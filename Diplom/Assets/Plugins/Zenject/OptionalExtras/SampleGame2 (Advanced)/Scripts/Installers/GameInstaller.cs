@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Zenject.SpaceFighter
 {
     // Main installer for our game
-    public class GameInstaller : MonoInstaller
+    public class GameInstaller : MonoInstallerPunCallbacks
     {
         [Inject]
         Settings _settings = null;

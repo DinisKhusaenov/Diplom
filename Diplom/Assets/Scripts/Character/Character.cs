@@ -1,5 +1,6 @@
 using Photon.Pun;
 using UnityEngine;
+using Zenject;
 
 [RequireComponent(typeof(CharacterController))]
 [RequireComponent(typeof(PhotonView))]
@@ -29,14 +30,12 @@ public class Character : MonoBehaviour
     {
         _view.Initialize();
         _characterController = GetComponent<CharacterController>();
-        _input = new CharacterInput();
         _camera = Camera.main;
+        _input = new CharacterInput();
         _stateMachine = new CharacterStateMachine(this);
-
-        _photonView = GetComponent<PhotonView>();
-
         _joinHandler.Initialize(_input);
 
+        _photonView = GetComponent<PhotonView>();
     }
 
     private void Update()

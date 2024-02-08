@@ -1,6 +1,6 @@
 using Zenject;
 
-public class ServiceInstaller : MonoInstaller
+public class ServiceInstaller : MonoInstallerPunCallbacks
 {
     public override void InstallBindings()
     {

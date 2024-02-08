@@ -1,24 +1,52 @@
-using UnityEngine;
 using Cinemachine;
+using UnityEngine;
 
+[RequireComponent(typeof(CinemachineVirtualCamera))]
 public class CameraModeSwitcher : MonoBehaviour
 {
-    [SerializeField] private CinemachineVirtualCamera _followCamera;
-    [SerializeField] private CinemachineVirtualCamera _castCamera;
+    private Transform _target;
+    private CinemachineVirtualCamera _virtualCamera;
 
-    public void ActivateCastCamera()
+    private IJoinHandler _character;
+    private PlayerCollector _players;
+
+    public void Initialize(Transform target, IJoinHandler character, PlayerCollector players)
     {
-        _followCamera.gameObject.SetActive(false);
+        _target = target;
+        _character = character;
+        _players = players;
 
-        if (_castCamera.TryGetComponent(out CinemachineInputProvider inputProvider))
-            inputProvider.enabled = false;
+        _virtualCamera = GetComponent<CinemachineVirtualCamera>();
+        _character.YesPressed += TryChangeTarget;
+        _character.UnjoinPressed += SetTarget;
+
+        SetTarget();
     }
 
-    public void DeactivateCastCamera()
+    private void OnDisable()
     {
-        _followCamera.gameObject.SetActive(true);
+        _character.YesPressed -= TryChangeTarget;
+        _character.UnjoinPressed -= SetTarget;
+    }
 
-        if (_castCamera.TryGetComponent(out CinemachineInputProvider inputProvider))
-            inputProvider.enabled = true;
+    private void SetTarget()
+    {
+        if (_target != null)
+            SetCameraTarget(_target);
+    }
+
+    private void TryChangeTarget()
+    {
+        foreach (var player in _players.Players)
+        {
+            if (player != null && player != _target)
+                SetCameraTarget(player);
+        }
+    }
+
+    private void SetCameraTarget(Transform target)
+    {
+        _virtualCamera.Follow = target;
+        _virtualCamera.LookAt = target;
     }
 }

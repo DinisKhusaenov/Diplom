@@ -20,15 +20,15 @@ namespace Zenject
         [FormerlySerializedAs("Installers")]
         [FormerlySerializedAs("_installers")]
         [SerializeField]
-        List<MonoInstaller> _monoInstallers = new List<MonoInstaller>();
+        List<MonoInstallerPunCallbacks> _monoInstallers = new List<MonoInstallerPunCallbacks>();
 
         [SerializeField]
-        List<MonoInstaller> _installerPrefabs = new List<MonoInstaller>();
+        List<MonoInstallerPunCallbacks> _installerPrefabs = new List<MonoInstallerPunCallbacks>();
 
         List<InstallerBase> _normalInstallers = new List<InstallerBase>();
         List<Type> _normalInstallerTypes = new List<Type>();
 
-        public IEnumerable<MonoInstaller> Installers
+        public IEnumerable<MonoInstallerPunCallbacks> Installers
         {
             get { return _monoInstallers; }
             set
@@ -38,7 +38,7 @@ namespace Zenject
             }
         }
 
-        public IEnumerable<MonoInstaller> InstallerPrefabs
+        public IEnumerable<MonoInstallerPunCallbacks> InstallerPrefabs
         {
             get { return _installerPrefabs; }
             set
@@ -102,7 +102,7 @@ namespace Zenject
             _normalInstallers.Add(installer);
         }
 
-        void CheckInstallerPrefabTypes(List<MonoInstaller> installers, List<MonoInstaller> installerPrefabs)
+        void CheckInstallerPrefabTypes(List<MonoInstallerPunCallbacks> installers, List<MonoInstallerPunCallbacks> installerPrefabs)
         {
             foreach (var installer in installers)
             {
@@ -129,7 +129,7 @@ namespace Zenject
                     //"Found non-prefab with name '{0}' in the InstallerPrefabs property of Context '{1}'.  You should use the property 'Installer' for this instead",
                     //installerPrefab.name, this.name);
 //#endif
-                Assert.That(installerPrefab.GetComponent<MonoInstaller>() != null,
+                Assert.That(installerPrefab.GetComponent<MonoInstallerPunCallbacks>() != null,
                     "Expected to find component with type 'MonoInstaller' on given installer prefab '{0}'", installerPrefab.name);
             }
         }
@@ -144,8 +144,8 @@ namespace Zenject
             List<InstallerBase> normalInstallers,
             List<Type> normalInstallerTypes,
             List<ScriptableObjectInstaller> scriptableObjectInstallers,
-            List<MonoInstaller> installers,
-            List<MonoInstaller> installerPrefabs)
+            List<MonoInstallerPunCallbacks> installers,
+            List<MonoInstallerPunCallbacks> installerPrefabs)
         {
             CheckInstallerPrefabTypes(installers, installerPrefabs);
 
@@ -185,7 +185,7 @@ namespace Zenject
                 }
 
                 installerGameObject.transform.SetParent(transform, false);
-                var installer = installerGameObject.GetComponent<MonoInstaller>();
+                var installer = installerGameObject.GetComponent<MonoInstallerPunCallbacks>();
 
                 Assert.IsNotNull(installer, "Could not find installer component on prefab '{0}'", installerPrefab.name);
 

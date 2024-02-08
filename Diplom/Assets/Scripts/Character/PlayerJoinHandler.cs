@@ -33,6 +33,8 @@ public class PlayerJoinHandler : MonoBehaviour, IJoinHandler
         PhotonNetwork.NetworkingClient.EventReceived += Join;
         PhotonNetwork.NetworkingClient.EventReceived += JoinMe;
         PhotonNetwork.NetworkingClient.EventReceived += UnjoinMe;
+        PhotonNetwork.NetworkingClient.EventReceived += OnQuitGame;
+
         _input.Movement.Jump.started += OnJumpPressed;
         _input.JoinRequest.Join.started += OnJoinPressed;
         _input.JoinRequest.Unjoin.started += OnUnjoinPressed;
@@ -44,6 +46,8 @@ public class PlayerJoinHandler : MonoBehaviour, IJoinHandler
         PhotonNetwork.NetworkingClient.EventReceived -= Join;
         PhotonNetwork.NetworkingClient.EventReceived -= JoinMe;
         PhotonNetwork.NetworkingClient.EventReceived -= UnjoinMe;
+        PhotonNetwork.NetworkingClient.EventReceived -= OnQuitGame;
+
         _input.Movement.Jump.started -= OnJumpPressed;
         _input.JoinRequest.Join.started -= OnJoinPressed;
         _input.JoinRequest.Unjoin.started -= OnUnjoinPressed;
@@ -54,17 +58,23 @@ public class PlayerJoinHandler : MonoBehaviour, IJoinHandler
         IsJoined = true;
         YesPressed?.Invoke();
 
-        object[] eventData = new object[] { (byte)PlayerJoinEvents.JoinMe };
-        PhotonNetwork.RaiseEvent((byte)PlayerJoinEvents.JoinMe, eventData, new RaiseEventOptions { Receivers = ReceiverGroup.Others }, SendOptions.SendReliable);
+        object[] eventData = new object[] { (byte)JoinEvents.JoinMe };
+        PhotonNetwork.RaiseEvent((byte)JoinEvents.JoinMe, eventData, new RaiseEventOptions { Receivers = ReceiverGroup.Others }, SendOptions.SendReliable);
 
+    }
+
+    public void OnQuitGameClicked()
+    {
+        object[] eventData = new object[] { (byte)JoinEvents.QuitGame };
+        PhotonNetwork.RaiseEvent((byte)JoinEvents.QuitGame, eventData, new RaiseEventOptions { Receivers = ReceiverGroup.Others }, SendOptions.SendReliable);
     }
 
     private void OnJumpPressed(InputAction.CallbackContext obj)
     {
         if (IsJoined)
         {
-            object[] eventData = new object[] { (byte)PlayerJoinEvents.Jump };
-            PhotonNetwork.RaiseEvent((byte)PlayerJoinEvents.Jump, eventData, new RaiseEventOptions { Receivers = ReceiverGroup.Others }, SendOptions.SendReliable);
+            object[] eventData = new object[] { (byte)JoinEvents.Jump };
+            PhotonNetwork.RaiseEvent((byte)JoinEvents.Jump, eventData, new RaiseEventOptions { Receivers = ReceiverGroup.Others }, SendOptions.SendReliable);
         }
     }
 
@@ -72,8 +82,8 @@ public class PlayerJoinHandler : MonoBehaviour, IJoinHandler
     {
         if (IsJoined == false && IsJoinedMe == false)
         {
-            object[] eventData = new object[] { (byte)PlayerJoinEvents.Join };
-            PhotonNetwork.RaiseEvent((byte)PlayerJoinEvents.Join, eventData, new RaiseEventOptions { Receivers = ReceiverGroup.Others }, SendOptions.SendReliable);
+            object[] eventData = new object[] { (byte)JoinEvents.Join };
+            PhotonNetwork.RaiseEvent((byte)JoinEvents.Join, eventData, new RaiseEventOptions { Receivers = ReceiverGroup.Others }, SendOptions.SendReliable);
         }
     }
 
@@ -84,26 +94,26 @@ public class PlayerJoinHandler : MonoBehaviour, IJoinHandler
             UnjoinPressed?.Invoke();
             IsJoined = false;
 
-            object[] eventData = new object[] { (byte)PlayerJoinEvents.UnjoinMe };
-            PhotonNetwork.RaiseEvent((byte)PlayerJoinEvents.UnjoinMe, eventData, new RaiseEventOptions { Receivers = ReceiverGroup.Others }, SendOptions.SendReliable);
+            object[] eventData = new object[] { (byte)JoinEvents.UnjoinMe };
+            PhotonNetwork.RaiseEvent((byte)JoinEvents.UnjoinMe, eventData, new RaiseEventOptions { Receivers = ReceiverGroup.Others }, SendOptions.SendReliable);
         }
     }
 
     private void Jump(EventData obj)
     {
-        if (obj.Code == (byte)PlayerJoinEvents.Jump)
+        if (obj.Code == (byte)JoinEvents.Jump)
             Jumped?.Invoke();
     }
 
     private void Join(EventData data)
     {
-        if (data.Code == (byte)PlayerJoinEvents.Join)
+        if (data.Code == (byte)JoinEvents.Join)
             JoinPressed?.Invoke();
     }
 
     private void JoinMe(EventData data)
     {
-        if (data.Code == (byte)PlayerJoinEvents.JoinMe)
+        if (data.Code == (byte)JoinEvents.JoinMe)
         {
             IsJoinedMe = true;
             JoinedMe?.Invoke();
@@ -112,10 +122,19 @@ public class PlayerJoinHandler : MonoBehaviour, IJoinHandler
 
     private void UnjoinMe(EventData data)
     {
-        if (data.Code == (byte)PlayerJoinEvents.UnjoinMe)
+        if (data.Code == (byte)JoinEvents.UnjoinMe)
         {
             UnjoinedMe?.Invoke();
             IsJoinedMe = false;
+        }
+    }
+
+    private void OnQuitGame(EventData data)
+    {
+        if (IsJoined && data.Code == (byte)JoinEvents.QuitGame)
+        {
+            UnjoinPressed?.Invoke();
+            IsJoined = false;
         }
     }
 }

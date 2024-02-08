@@ -6,7 +6,7 @@ namespace Zenject
 {
     // We'd prefer to make this abstract but Unity 5.3.5 has a bug where references
     // can get lost during compile errors for classes that are abstract
-    public class MonoInstaller : MonoInstallerBase
+    public class MonoInstallerPunCallbacks : MonoInstallerBase
     {
     }
 
@@ -20,7 +20,7 @@ namespace Zenject
     //
     // This approach is needed if you want to pass in strongly parameters to it from
     // another installer
-    public class MonoInstaller<TDerived> : MonoInstaller
+    public class MonoInstaller<TDerived> : MonoInstallerPunCallbacks
         where TDerived : MonoInstaller<TDerived>
     {
         public static TDerived InstallFromResource(DiContainer container)

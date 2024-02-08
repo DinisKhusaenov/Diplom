@@ -4,7 +4,7 @@
 
 namespace Zenject.Tests.Bindings.FromComponentInHierarchyGameObjectContext
 {
-    public class FooInstaller : MonoInstaller
+    public class FooInstaller : MonoInstallerPunCallbacks
     {
         [SerializeField]
         Foo _foo;
