@@ -39,6 +39,6 @@ public class PlayerInstaller : MonoInstallerPunCallbacks
 
     private void BindMediator()
     {
-        Container.Bind<JoinMediator>().AsSingle().WithArguments(_joinRequestView, _joinActiveView);
+        Container.Bind<JoinMediator>().AsSingle().WithArguments(_joinRequestView, _joinActiveView).NonLazy();
     }
 }
