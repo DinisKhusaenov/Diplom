@@ -3,15 +3,22 @@ using UnityEngine;
 public abstract class AirbornState : MovementState
 {
     private readonly AirbornStateConfig _config;
+    private Character _character;
 
     protected AirbornState(IStateSwitcher stateSwitcher, Character character, StateMachineData data, Camera camera) : base(stateSwitcher, character, data, camera)
-        => _config = character.Config.AirbornStateConfig;
+    {
+        _config = character.Config.AirbornStateConfig;
+        _character = character;
+    }
 
     public override void Enter()
     {
         base.Enter();
 
-        Data.Speed = _config.Speed;
+        if (_character.JoinHandler.IsJoinedMe)
+            Data.Speed = _config.Speed * MultiplyingWhenCombining;
+        else
+            Data.Speed = _config.Speed;
 
         View.StartAirborne();
     }

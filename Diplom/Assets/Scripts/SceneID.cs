@@ -1,5 +1,6 @@
 public enum SceneID
 {
     LobbyScene = 0,
-    GameScene
+    GameScene,
+    TestScene
 }

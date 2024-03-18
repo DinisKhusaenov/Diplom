@@ -60,7 +60,6 @@ public class PlayerJoinHandler : MonoBehaviour, IJoinHandler
 
         object[] eventData = new object[] { (byte)JoinEvents.JoinMe };
         PhotonNetwork.RaiseEvent((byte)JoinEvents.JoinMe, eventData, new RaiseEventOptions { Receivers = ReceiverGroup.Others }, SendOptions.SendReliable);
-
     }
 
     public void OnQuitGameClicked()
